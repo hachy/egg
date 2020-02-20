@@ -1,0 +1,18 @@
+{
+  "name": "egg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf ./dist && rm -rf ./.cache",
+    "dev": "npx parcel src/index.html --open",
+    "build": "npm run clean && npx parcel build src/index.html --no-source-maps --public-url ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hachy",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.7.5"
+  }
+}
