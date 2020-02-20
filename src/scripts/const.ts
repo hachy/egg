@@ -10,3 +10,4 @@ export const UPPER_SHELL = images.egg6;
 export const LOWER_SHELL = images.egg7;
 export const board: any[] = [];
 export const CHARACTER = [images.egg1, images.egg2, images.egg3, images.egg4, images.egg6, images.egg7];
+export const PLAYER = images.player;

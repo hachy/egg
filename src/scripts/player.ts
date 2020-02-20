@@ -1,4 +1,4 @@
-import { canvasEl, COL, SQX, SQY } from './const';
+import { canvasEl, COL, SQX, SQY, PLAYER } from './const';
 
 export class Player {
   ctx: CanvasRenderingContext2D;
@@ -19,13 +19,16 @@ export class Player {
   }
 
   draw(): void {
-    this.ctx.fillStyle = 'purple';
-    this.ctx.fillRect(this.x * SQX, 9.5 * SQY, SQX * 2, SQY / 2);
+    const img = new Image();
+    img.src = PLAYER;
+    img.onload = (): void => {
+      this.ctx.drawImage(img, this.x * SQX, 9.1 * SQY);
+    };
   }
 
   unDraw(): void {
     this.ctx.fillStyle = 'white';
-    this.ctx.fillRect(this.x * SQX, 9.5 * SQY, SQX * 2, SQY / 2);
+    this.ctx.fillRect(this.x * SQX, 9 * SQY, SQX * 2, SQY);
   }
 
   left(): void {
