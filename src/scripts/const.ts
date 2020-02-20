@@ -6,6 +6,7 @@ export const COL = 4;
 export const SQX = 64;
 export const SQY = 52;
 export const VACANT = images.egg5;
+export const VACANT_COLOR = '#C7DFE0';
 export const UPPER_SHELL = images.egg6;
 export const LOWER_SHELL = images.egg7;
 export const board: any[] = [];

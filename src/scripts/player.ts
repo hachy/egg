@@ -1,4 +1,4 @@
-import { canvasEl, COL, SQX, SQY, PLAYER } from './const';
+import { canvasEl, COL, SQX, SQY, VACANT_COLOR, PLAYER } from './const';
 
 export class Player {
   ctx: CanvasRenderingContext2D;
@@ -27,7 +27,7 @@ export class Player {
   }
 
   unDraw(): void {
-    this.ctx.fillStyle = 'white';
+    this.ctx.fillStyle = VACANT_COLOR;
     this.ctx.fillRect(this.x * SQX, 9 * SQY, SQX * 2, SQY);
   }
 

@@ -13,6 +13,7 @@ for (let r = 0; r < ROW; r++) {
 }
 
 Canvas.drawBoard();
+Canvas.drawPlayerBg();
 
 const player = new Player();
 
