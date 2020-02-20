@@ -1,4 +1,4 @@
-import { canvasEl, COL, ROW, SQX, SQY, VACANT, VACANT_COLOR, board } from './const';
+import { canvasEl, COL, ROW, SQX, SQY, VACANT, VACANT_COLOR, PLATE, board } from './const';
 
 export class Canvas {
   static ctx = canvasEl.getContext('2d') as CanvasRenderingContext2D;
@@ -24,9 +24,16 @@ export class Canvas {
     }
   }
 
-  static drawPlayerBg(): void {
+  static drawPlate(): void {
     this.ctx.fillStyle = VACANT_COLOR;
     this.ctx.fillRect(0, 9 * SQY, COL * SQX, SQY);
+
+    const img = new Image();
+    img.src = PLATE;
+    img.onload = (): void => {
+      this.ctx.drawImage(img, 0 * SQX, 9.1 * SQY);
+      this.ctx.drawImage(img, 3 * SQX, 9.1 * SQY);
+    };
   }
 
   static swap(h: number, pxl: number, pxr: number): void {

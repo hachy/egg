@@ -1,4 +1,4 @@
-import { canvasEl, COL, SQX, SQY, VACANT_COLOR, PLAYER } from './const';
+import { canvasEl, COL, SQX, SQY, VACANT_COLOR, PLAYER, PLATE } from './const';
 
 export class Player {
   ctx: CanvasRenderingContext2D;
@@ -26,14 +26,24 @@ export class Player {
     };
   }
 
-  unDraw(): void {
+  unDraw(moveLeft = true): void {
     this.ctx.fillStyle = VACANT_COLOR;
     this.ctx.fillRect(this.x * SQX, 9 * SQY, SQX * 2, SQY);
+
+    const img = new Image();
+    img.src = PLATE;
+    img.onload = (): void => {
+      if (moveLeft) {
+        this.ctx.drawImage(img, (this.x + 2) * SQX, 9.1 * SQY);
+      } else {
+        this.ctx.drawImage(img, (this.x - 1) * SQX, 9.1 * SQY);
+      }
+    };
   }
 
   left(): void {
     if (this.x > 0) {
-      this.unDraw();
+      this.unDraw(true);
       this.x--;
       this.draw();
     }
@@ -41,7 +51,7 @@ export class Player {
 
   right(): void {
     if (this.x < COL - 2) {
-      this.unDraw();
+      this.unDraw(false);
       this.x++;
       this.draw();
     }
