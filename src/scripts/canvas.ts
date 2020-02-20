@@ -8,6 +8,11 @@ export class Canvas {
     img.src = image;
     img.onload = (): void => {
       this.ctx.drawImage(img, x * SQX, y * SQY, SQX, SQY);
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, SQY);
+      this.ctx.lineTo(4 * SQX, SQY);
+      this.ctx.strokeStyle = '#555555';
+      this.ctx.stroke();
     };
   }
 
