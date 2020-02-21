@@ -44,6 +44,7 @@ document.addEventListener('keydown', e => {
         Canvas.swap(h, player.xLeft, player.xRight);
         Game.swap(h, player.xLeft, player.xRight);
       }
+      player.swap();
       break;
     }
     default:

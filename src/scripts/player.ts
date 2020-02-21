@@ -56,4 +56,23 @@ export class Player {
       this.draw();
     }
   }
+
+  swap(): void {
+    let scale = 0.4;
+    const img = new Image();
+    img.src = PLAYER;
+    img.onload = (): void => {
+      const rotate = (): void => {
+        const imgW = img.width * scale;
+        if (scale <= 1) {
+          this.ctx.fillStyle = VACANT_COLOR;
+          this.ctx.fillRect(this.x * SQX, 9 * SQY, SQX * 2, SQY);
+
+          this.ctx.drawImage(img, (this.x + 1) * SQX - imgW / 2, 9.1 * SQY, imgW, img.height);
+        }
+        scale += 0.2;
+      };
+      setInterval(rotate, 30);
+    };
+  }
 }
