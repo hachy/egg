@@ -16,6 +16,46 @@ export class Canvas {
     };
   }
 
+  static moveLeft(x: number, y: number, image: string): void {
+    let interval: number;
+    let d = 0;
+    const img = new Image();
+    img.src = image;
+    img.onload = (): void => {
+      const anim = (): void => {
+        if (d <= 1) {
+          Canvas.drawSquare(x - d, y, VACANT);
+          this.ctx.drawImage(img, (x - d) * SQX, y * SQY);
+        } else {
+          clearInterval(interval);
+          this.ctx.drawImage(img, (x - 1) * SQX, y * SQY);
+        }
+        d += 0.4;
+      };
+      interval = window.setInterval(anim, 30);
+    };
+  }
+
+  static moveRight(x: number, y: number, image: string): void {
+    let interval: number;
+    let d = 0;
+    const img = new Image();
+    img.src = image;
+    img.onload = (): void => {
+      const anim = (): void => {
+        if (d <= 1) {
+          Canvas.drawSquare(x + d, y, VACANT);
+          this.ctx.drawImage(img, (x + d) * SQX, y * SQY);
+        } else {
+          clearInterval(interval);
+          this.ctx.drawImage(img, (x + 1) * SQX, y * SQY);
+        }
+        d += 0.4;
+      };
+      interval = window.setInterval(anim, 30);
+    };
+  }
+
   static drawBoard(y = 0): void {
     for (let r = y; r < ROW; r++) {
       for (let c = 0; c < COL; c++) {
@@ -44,10 +84,10 @@ export class Canvas {
       for (let r = h; r < ROW; r++) {
         if (pxl === c) {
           left.push(board[r][c]);
-          Canvas.drawSquare(c, r, VACANT);
+          Canvas.moveRight(c, r, board[r][c]);
         } else {
           right.push(board[r][c]);
-          Canvas.drawSquare(c, r, VACANT);
+          Canvas.moveLeft(c, r, board[r][c]);
         }
       }
     }
@@ -55,7 +95,6 @@ export class Canvas {
     let n = 0;
     for (let c = pxl; c < max; c++) {
       for (let r = h; r < ROW; r++) {
-        Canvas.drawSquare(c, r, res[n]);
         board[r][c] = res[n];
         n++;
       }

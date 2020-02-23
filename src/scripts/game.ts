@@ -80,11 +80,9 @@ export class Game {
 
   static swap(h: number, pxl: number, pxr: number): void {
     Global.pieces.forEach(p => {
-      // console.log(pxr);
       if (p.y >= h) {
         if (pxl === p.x) {
           p.right();
-          // console.log(p.x);
         }
         if (pxr === p.x) {
           p.left();

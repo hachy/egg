@@ -28,15 +28,15 @@ export class Piece {
 
   left(): void {
     if (!this.collision(-1, 0)) {
+      Canvas.moveLeft(this.x, this.y, this.image);
       this.x--;
-      this.draw();
     }
   }
 
   right(): void {
     if (!this.collision(1, 0)) {
+      Canvas.moveRight(this.x, this.y, this.image);
       this.x++;
-      this.draw();
     }
   }
 
