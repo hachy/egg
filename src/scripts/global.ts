@@ -5,7 +5,7 @@ export class Global {
   static waiting: Piece[] = [];
   static gameOver = false;
   static done = false;
-  static moveDownN = 0;
+  static standbyFlag = true;
   static anim: number;
   static dropStart = Date.now();
 }

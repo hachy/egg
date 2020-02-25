@@ -1,7 +1,9 @@
 import { COL, ROW, CHARACTER } from './const';
 import { getNumber } from './util';
+import { Canvas } from './canvas';
 import { Global } from './global';
 import { Piece } from './piece';
+import { ready } from './ready';
 
 const pattern = [
   [0, 1],
@@ -12,6 +14,10 @@ const pattern = [
   [1, 3],
   [2, 3]
 ];
+
+const wait = (ms: number): Promise<number> => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
 
 export class Game {
   static test1(): void {
@@ -34,6 +40,16 @@ export class Game {
     const p1 = new Piece(3, 8, CHARACTER[1]);
     p1.draw();
     p1.lock();
+  }
+
+  static test3(): void {
+    for (let c = 1; c < COL - 1; c++) {
+      for (let r = 1; r < ROW; r++) {
+        const p = new Piece(c, r, CHARACTER[getNumber()]);
+        p.draw();
+        p.lock();
+      }
+    }
   }
 
   static drop(): void {
@@ -67,15 +83,23 @@ export class Game {
   static piecesDown(): void {
     if (!Global.gameOver) {
       Global.pieces.forEach(p => {
-        p.down();
-        if (p.y === 1) {
-          Global.moveDownN++;
-          if (Global.moveDownN === Global.pieces.length) {
-            this.standby();
-          }
+        if (Global.standbyFlag) {
+          Game.spawn();
+          Global.standbyFlag = false;
         }
+        p.down();
       });
+      if (Global.pieces.length === 0) {
+        Canvas.drawBoard(1);
+        ready();
+        Global.standbyFlag = true;
+      }
     }
+  }
+
+  static async spawn(): Promise<void> {
+    await wait(200);
+    Game.standby();
   }
 
   static swap(h: number, pxl: number, pxr: number): void {

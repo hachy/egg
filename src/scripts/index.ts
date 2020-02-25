@@ -1,4 +1,5 @@
 import { COL, ROW, VACANT, board } from './const';
+import { Global } from './global';
 import { lockedH } from './util';
 import { Canvas } from './canvas';
 import { Game } from './game';
@@ -18,14 +19,18 @@ Canvas.drawPlate();
 const player = new Player();
 
 // Game.test1();
-Game.test2();
+// Game.test2();
+Game.test3();
 
 Game.standby();
 ready();
-
 // Game.drop();
 
 document.addEventListener('keydown', e => {
+  if (Global.gameOver) {
+    e.preventDefault();
+    return;
+  }
   switch (e.keyCode) {
     case 37:
       player.left();

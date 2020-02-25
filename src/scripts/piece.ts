@@ -1,7 +1,6 @@
 import { COL, ROW, VACANT, UPPER_SHELL, LOWER_SHELL, board } from './const';
 import { Canvas } from './canvas';
 import { Global } from './global';
-import { ready } from './ready';
 
 const wait = (ms: number): Promise<number> => {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -118,11 +117,13 @@ export class Piece {
     } else {
       this.lock();
       this.checkLower();
-      Global.pieces = Global.pieces.filter(p => p !== this);
-      if (Global.pieces.length === 0) {
-        Canvas.drawBoard(1);
-        ready();
+      for (let c = 0; c < COL; c++) {
+        if (board[0][c] !== VACANT) {
+          console.log('gameover');
+          Global.gameOver = true;
+        }
       }
+      Global.pieces = Global.pieces.filter(p => p !== this);
     }
   }
 
@@ -142,9 +143,5 @@ export class Piece {
 
   lock(): void {
     board[this.y][this.x] = this.image;
-    if (this.y <= 0) {
-      console.log('gameover');
-      Global.gameOver = true;
-    }
   }
 }
