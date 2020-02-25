@@ -1,5 +1,5 @@
 import { COL, ROW, CHARACTER } from './const';
-import { getNumber } from './util';
+import { getNumber, wait } from './util';
 import { Canvas } from './canvas';
 import { Global } from './global';
 import { Piece } from './piece';
@@ -14,10 +14,6 @@ const pattern = [
   [1, 3],
   [2, 3]
 ];
-
-const wait = (ms: number): Promise<number> => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
 
 export class Game {
   static test1(): void {

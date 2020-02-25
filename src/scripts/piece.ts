@@ -1,10 +1,7 @@
 import { COL, ROW, VACANT, UPPER_SHELL, LOWER_SHELL, board } from './const';
 import { Canvas } from './canvas';
 import { Global } from './global';
-
-const wait = (ms: number): Promise<number> => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
+import { wait } from './util';
 
 export class Piece {
   x: number;

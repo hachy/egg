@@ -28,3 +28,7 @@ export const lockedH = (px: number): number => {
   }
   return h;
 };
+
+export const wait = (ms: number): Promise<number> => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
