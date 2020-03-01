@@ -2,6 +2,7 @@ import { COL, ROW, VACANT, UPPER_SHELL, LOWER_SHELL, board } from './const';
 import { Canvas } from './canvas';
 import { Global } from './global';
 import { wait } from './util';
+import { Score } from './score';
 
 export class Piece {
   x: number;
@@ -66,12 +67,14 @@ export class Piece {
       board[nny][this.x] = VACANT;
       this.y++;
       this.draw();
+      Score.count(5);
       await wait(400);
       if (nny === a) {
         this.unDraw();
         Canvas.drawSquare(this.x, this.y + 1, VACANT);
         board[this.y + 1][this.x] = VACANT;
         Global.dropStart = Date.now();
+        Score.count(5);
       }
     }
   }
@@ -84,6 +87,7 @@ export class Piece {
         Canvas.drawSquare(this.x, ny, VACANT);
         board[this.y][this.x] = VACANT;
         board[ny][this.x] = VACANT;
+        Score.count(1);
       } else if (board[this.y][this.x] === UPPER_SHELL) {
         if (this.eggArr().length === 0) {
           this.unDraw();
@@ -93,6 +97,7 @@ export class Piece {
           board[this.y][this.x] = VACANT;
           Canvas.drawSquare(this.x, this.y + 1, VACANT);
           board[this.y + 1][this.x] = VACANT;
+          Score.count(1);
         } else {
           this.hatch(this.eggArr());
         }

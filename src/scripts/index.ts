@@ -5,6 +5,7 @@ import { Canvas } from './canvas';
 import { Game } from './game';
 import { ready } from './ready';
 import { Player } from './player';
+import { Score } from './score';
 
 for (let r = 0; r < ROW; r++) {
   board[r] = [];
@@ -13,14 +14,16 @@ for (let r = 0; r < ROW; r++) {
   }
 }
 
+Score.count(0);
+
 Canvas.drawBoard();
 Canvas.drawPlate();
 
 const player = new Player();
 
 // Game.test1();
-// Game.test2();
-Game.test3();
+Game.test2();
+// Game.test3();
 
 Game.standby();
 ready();

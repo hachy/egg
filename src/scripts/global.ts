@@ -8,4 +8,5 @@ export class Global {
   static standbyFlag = true;
   static anim: number;
   static dropStart = Date.now();
+  static score = 0;
 }
