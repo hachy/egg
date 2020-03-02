@@ -10,11 +10,32 @@
 }
 
 .container {
-  width: 100%;
+  position: relative;
 }
 
 #canvas {
   display: block;
   margin: 0 auto;
+  background: #C7DFE0;
   border: 1px solid #000;
+}
+
+#startBtn {
+  position: absolute;
+  top: 250px;
+  left: calc(50% - 80px);
+  z-index: 100;
+  width: 160px;
+  padding: 15px 0;
+  background: #fff;
+  border: 0px solid transparent;
+  border-radius: 50px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#startBtn:hover {
+  color: #000;
+  background: #eee;
 }

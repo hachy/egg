@@ -1,9 +1,10 @@
-import { COL, ROW, CHARACTER } from './const';
-import { getNumber, wait } from './util';
+import { COL, ROW, VACANT, board, CHARACTER } from './const';
+import { getNumber, wait, lockedH } from './util';
 import { Canvas } from './canvas';
 import { Global } from './global';
 import { Piece } from './piece';
 import { ready } from './ready';
+import { Player } from './player';
 
 const pattern = [
   [0, 1],
@@ -15,7 +16,76 @@ const pattern = [
   [2, 3]
 ];
 
-export class Game {
+class Game {
+  startBtn: HTMLButtonElement;
+  player!: Player;
+
+  constructor() {
+    this.startBtn = document.getElementById('startBtn') as HTMLButtonElement;
+  }
+
+  init(): void {
+    this.startBtn.addEventListener('click', () => this.start());
+  }
+
+  start(): void {
+    this.startBtn.style.display = 'none';
+    Game.createBoard();
+    Canvas.drawBoard();
+    Canvas.drawPlate();
+
+    this.player = new Player();
+
+    // Game.test1();
+    Game.test2();
+    // Game.test3();
+
+    Game.spawn();
+    ready();
+    Game.drop();
+    document.addEventListener('keydown', e => this.keydown(e));
+  }
+
+  keydown(e: KeyboardEvent): void {
+    if (Global.gameOver) {
+      e.preventDefault();
+      return;
+    }
+    switch (e.keyCode) {
+      case 37:
+        this.player.left();
+        break;
+      case 38:
+        break;
+      case 39:
+        this.player.right();
+        break;
+      case 40:
+        Game.piecesDown();
+        break;
+      case 32: {
+        const h = lockedH(this.player.xLeft);
+        if (h) {
+          Canvas.swap(h, this.player.xLeft, this.player.xRight);
+          Game.swap(h, this.player.xLeft, this.player.xRight);
+        }
+        this.player.swap();
+        break;
+      }
+      default:
+        break;
+    }
+  }
+
+  static createBoard(): void {
+    for (let r = 0; r < ROW; r++) {
+      board[r] = [];
+      for (let c = 0; c < COL; c++) {
+        board[r][c] = VACANT;
+      }
+    }
+  }
+
   static test1(): void {
     for (let c = 1; c < COL - 1; c++) {
       for (let r = 4; r < ROW; r++) {
@@ -111,3 +181,6 @@ export class Game {
     });
   }
 }
+
+const game = new Game();
+game.init();

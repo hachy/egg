@@ -2,7 +2,7 @@
   "name": "egg",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "game.js",
   "scripts": {
     "clean": "rm -rf ./dist && rm -rf ./.cache",
     "dev": "npx parcel src/index.html --open",
