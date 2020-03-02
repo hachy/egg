@@ -77,6 +77,8 @@ export class Piece {
         Score.count(5);
       }
     }
+    await wait(200);
+    Global.preventKey = false;
   }
 
   checkLower(): void {
@@ -99,6 +101,7 @@ export class Piece {
           board[this.y + 1][this.x] = VACANT;
           Score.count(1);
         } else {
+          Global.preventKey = true;
           this.hatch(this.eggArr());
         }
       }

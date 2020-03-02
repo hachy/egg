@@ -9,4 +9,5 @@ export class Global {
   static anim: number;
   static dropStart = Date.now();
   static score = 0;
+  static preventKey = false;
 }

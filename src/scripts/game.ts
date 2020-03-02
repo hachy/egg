@@ -61,15 +61,20 @@ class Game {
         this.player.right();
         break;
       case 40:
-        Game.piecesDown();
+        if (!Global.preventKey) {
+          Game.piecesDown();
+          Global.anim = requestAnimationFrame(Game.drop);
+        }
         break;
       case 32: {
-        const h = lockedH(this.player.xLeft);
-        if (h) {
-          Canvas.swap(h, this.player.xLeft, this.player.xRight);
-          Game.swap(h, this.player.xLeft, this.player.xRight);
+        if (!Global.preventKey) {
+          const h = lockedH(this.player.xLeft);
+          if (h) {
+            Canvas.swap(h, this.player.xLeft, this.player.xRight);
+            Game.swap(h, this.player.xLeft, this.player.xRight);
+          }
+          this.player.swap();
         }
-        this.player.swap();
         break;
       }
       default:
