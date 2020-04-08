@@ -126,6 +126,7 @@ export class Piece {
         if (board[0][c] !== VACANT) {
           console.log('gameover');
           Global.gameOver = true;
+          Global.pauseDisabled = true;
         }
       }
       Global.pieces = Global.pieces.filter(p => p !== this);

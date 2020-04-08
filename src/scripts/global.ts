@@ -4,6 +4,7 @@ export class Global {
   static pieces: Piece[] = [];
   static waiting: Piece[] = [];
   static gameOver = false;
+  static pauseDisabled = false;
   static done = false;
   static standbyFlag = true;
   static anim: number;

@@ -29,14 +29,12 @@ class Game {
   }
 
   init(): void {
-    Global.gameOver = true;
     this.startBtn.addEventListener('click', () => this.start());
     this.pauseBtn.addEventListener('click', () => this.pause());
     this.resumeBtn.addEventListener('click', () => this.resume());
   }
 
   start(): void {
-    Global.gameOver = false;
     this.startBtn.style.display = 'none';
     this.pauseBtn.disabled = false;
     Game.createBoard();
@@ -56,18 +54,22 @@ class Game {
   }
 
   pause(): void {
-    if (!Global.gameOver) {
-      Global.gameOver = true;
-      this.resumeBtn.style.display = 'block';
-    } else {
-      this.resume();
+    if (!Global.pauseDisabled) {
+      if (!Global.gameOver) {
+        Global.gameOver = true;
+        this.resumeBtn.style.display = 'block';
+      } else {
+        this.resume();
+      }
     }
   }
 
   resume(): void {
-    Global.gameOver = false;
-    Global.anim = requestAnimationFrame(Game.drop);
-    this.resumeBtn.style.display = 'none';
+    if (!Global.pauseDisabled) {
+      Global.gameOver = false;
+      Global.anim = requestAnimationFrame(Game.drop);
+      this.resumeBtn.style.display = 'none';
+    }
   }
 
   keydown(e: KeyboardEvent): void {
