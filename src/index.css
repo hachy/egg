@@ -16,7 +16,7 @@
 #canvas {
   display: block;
   margin: 0 auto;
-  background: #C7DFE0;
+  background: #c7dfe0;
   border: 1px solid #000;
 }
 
@@ -29,13 +29,42 @@
   padding: 15px 0;
   background: #fff;
   border: 0px solid transparent;
-  border-radius: 50px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
   cursor: pointer;
   transition: all 0.3s;
 }
 
-#startBtn:hover {
+#resumeBtn {
+  position: absolute;
+  top: 200px;
+  left: calc(50% - 80px);
+  z-index: 100;
+  display: none;
+  width: 160px;
+  padding: 15px 0;
+  background: #fff;
+  border: 0px solid transparent;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#pauseWrapper {
+  width: 256px;
+  margin: 0 auto;
+  text-align: right;
+}
+
+#pauseBtn {
+  padding: 4px 12px;
+  background: #fff;
+  border: 1px solid #000;
+  transition: all 0.3s;
+}
+
+#startBtn:hover,
+#resumeBtn:hover,
+#pauseBtn:hover:not(:disabled) {
   color: #000;
   background: #eee;
 }

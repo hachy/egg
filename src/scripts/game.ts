@@ -18,18 +18,27 @@ const pattern = [
 
 class Game {
   startBtn: HTMLButtonElement;
+  pauseBtn: HTMLButtonElement;
+  resumeBtn: HTMLButtonElement;
   player!: Player;
 
   constructor() {
     this.startBtn = document.getElementById('startBtn') as HTMLButtonElement;
+    this.pauseBtn = document.getElementById('pauseBtn') as HTMLButtonElement;
+    this.resumeBtn = document.getElementById('resumeBtn') as HTMLButtonElement;
   }
 
   init(): void {
+    Global.gameOver = true;
     this.startBtn.addEventListener('click', () => this.start());
+    this.pauseBtn.addEventListener('click', () => this.pause());
+    this.resumeBtn.addEventListener('click', () => this.resume());
   }
 
   start(): void {
+    Global.gameOver = false;
     this.startBtn.style.display = 'none';
+    this.pauseBtn.disabled = false;
     Game.createBoard();
     Canvas.drawBoard();
     Canvas.drawPlate();
@@ -46,39 +55,50 @@ class Game {
     document.addEventListener('keydown', e => this.keydown(e));
   }
 
-  keydown(e: KeyboardEvent): void {
-    if (Global.gameOver) {
-      e.preventDefault();
-      return;
+  pause(): void {
+    if (!Global.gameOver) {
+      Global.gameOver = true;
+      this.resumeBtn.style.display = 'block';
     }
-    switch (e.keyCode) {
-      case 37:
-        this.player.left();
-        break;
-      case 38:
-        break;
-      case 39:
-        this.player.right();
-        break;
-      case 40:
-        if (!Global.preventKey) {
-          Game.piecesDown();
-          Global.anim = requestAnimationFrame(Game.drop);
-        }
-        break;
-      case 32: {
-        if (!Global.preventKey) {
-          const h = lockedH(this.player.xLeft);
-          if (h) {
-            Canvas.swap(h, this.player.xLeft, this.player.xRight);
-            Game.swap(h, this.player.xLeft, this.player.xRight);
+  }
+
+  resume(): void {
+    Global.gameOver = false;
+    Global.anim = requestAnimationFrame(Game.drop);
+    this.resumeBtn.style.display = 'none';
+  }
+
+  keydown(e: KeyboardEvent): void {
+    if (!Global.gameOver) {
+      switch (e.keyCode) {
+        case 37:
+          this.player.left();
+          break;
+        case 38:
+          break;
+        case 39:
+          this.player.right();
+          break;
+        case 40:
+          if (!Global.preventKey) {
+            Game.piecesDown();
+            Global.anim = requestAnimationFrame(Game.drop);
           }
-          this.player.swap();
+          break;
+        case 32: {
+          if (!Global.preventKey) {
+            const h = lockedH(this.player.xLeft);
+            if (h) {
+              Canvas.swap(h, this.player.xLeft, this.player.xRight);
+              Game.swap(h, this.player.xLeft, this.player.xRight);
+            }
+            this.player.swap();
+          }
+          break;
         }
-        break;
+        default:
+          break;
       }
-      default:
-        break;
     }
   }
 
