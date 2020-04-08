@@ -59,6 +59,8 @@ class Game {
     if (!Global.gameOver) {
       Global.gameOver = true;
       this.resumeBtn.style.display = 'block';
+    } else {
+      this.resume();
     }
   }
 
