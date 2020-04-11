@@ -5,6 +5,7 @@ import { Global } from './global';
 import { Piece } from './piece';
 import { ready } from './ready';
 import { Player } from './player';
+import { Score } from './score';
 
 const pattern = [
   [0, 1],
@@ -18,12 +19,14 @@ const pattern = [
 
 class Game {
   startBtn: HTMLButtonElement;
+  newGameBtn: HTMLButtonElement;
   pauseBtn: HTMLButtonElement;
   resumeBtn: HTMLButtonElement;
   player!: Player;
 
   constructor() {
     this.startBtn = document.getElementById('startBtn') as HTMLButtonElement;
+    this.newGameBtn = document.getElementById('newGameBtn') as HTMLButtonElement;
     this.pauseBtn = document.getElementById('pauseBtn') as HTMLButtonElement;
     this.resumeBtn = document.getElementById('resumeBtn') as HTMLButtonElement;
     document.addEventListener('keydown', e => this.keydown(e));
@@ -32,6 +35,7 @@ class Game {
   init(): void {
     Global.gameOver = true;
     this.startBtn.addEventListener('click', () => this.start());
+    this.newGameBtn.addEventListener('click', () => this.newGame());
     this.pauseBtn.addEventListener('click', () => this.pause());
     this.resumeBtn.addEventListener('click', () => this.resume());
   }
@@ -53,6 +57,15 @@ class Game {
     Game.spawn();
     ready();
     Game.drop();
+  }
+
+  newGame(): void {
+    this.resumeBtn.style.display = 'none';
+    Global.waiting = [];
+    Global.gameOver = false;
+    Global.pauseDisabled = false;
+    Score.count(0);
+    this.start();
   }
 
   pause(): void {

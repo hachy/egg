@@ -49,12 +49,13 @@
   transition: all 0.3s;
 }
 
-#pauseWrapper {
+#header {
   width: 256px;
   margin: 0 auto;
   text-align: right;
 }
 
+#newGameBtn,
 #pauseBtn {
   padding: 4px 12px;
   background: #fff;
@@ -64,6 +65,7 @@
 
 #startBtn:hover,
 #resumeBtn:hover,
+#newGameBtn:hover,
 #pauseBtn:hover:not(:disabled) {
   color: #000;
   background: #eee;
