@@ -26,15 +26,18 @@ class Game {
     this.startBtn = document.getElementById('startBtn') as HTMLButtonElement;
     this.pauseBtn = document.getElementById('pauseBtn') as HTMLButtonElement;
     this.resumeBtn = document.getElementById('resumeBtn') as HTMLButtonElement;
+    document.addEventListener('keydown', e => this.keydown(e));
   }
 
   init(): void {
+    Global.gameOver = true;
     this.startBtn.addEventListener('click', () => this.start());
     this.pauseBtn.addEventListener('click', () => this.pause());
     this.resumeBtn.addEventListener('click', () => this.resume());
   }
 
   start(): void {
+    Global.gameOver = false;
     this.startBtn.style.display = 'none';
     this.pauseBtn.disabled = false;
     Game.createBoard();
@@ -50,7 +53,6 @@ class Game {
     Game.spawn();
     ready();
     Game.drop();
-    document.addEventListener('keydown', e => this.keydown(e));
   }
 
   pause(): void {
