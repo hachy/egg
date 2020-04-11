@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Egg</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
@@ -11,11 +12,15 @@
       <button id="newGameBtn">NEW GAME</button>
       <button id="pauseBtn" disabled>PAUSE</button>
     </div>
-    <div id="score-wrapper">SCORE: <span id="score">0</span></div>
+    <div id="score-wrapper">SCORE: <span class="score">0</span></div>
     <div class="container">
       <canvas id="canvas" width="256" height="520"></canvas>
       <button id="startBtn">START</button>
       <button id="resumeBtn">RESUME</button>
+      <div id="game-over">
+        <p class="title">GameOver</p>
+        <p class="final-score">SCORE: <span class="score">0</span></p>
+      </div>
     </div>
     <script src="scripts/game.ts"></script>
   </body>

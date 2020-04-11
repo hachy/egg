@@ -1,7 +1,7 @@
 import { Global } from './global';
 
 export class Score {
-  static el = document.getElementById('score') as HTMLSpanElement;
+  static els = document.getElementsByClassName('score') as HTMLCollection;
 
   static count(i: number): void {
     if (i === 0) {
@@ -9,6 +9,7 @@ export class Score {
     } else {
       Global.score += i;
     }
-    Score.el.textContent = `${Global.score}`;
+    Score.els[0].textContent = `${Global.score}`; // header score
+    Score.els[1].textContent = `${Global.score}`; // final score
   }
 }

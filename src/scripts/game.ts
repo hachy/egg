@@ -6,6 +6,7 @@ import { Piece } from './piece';
 import { ready } from './ready';
 import { Player } from './player';
 import { Score } from './score';
+import { GameOver } from './gameover';
 
 const pattern = [
   [0, 1],
@@ -61,6 +62,7 @@ class Game {
 
   newGame(): void {
     this.resumeBtn.style.display = 'none';
+    GameOver.hide();
     Global.waiting = [];
     Global.gameOver = false;
     Global.pauseDisabled = false;

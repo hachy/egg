@@ -3,6 +3,7 @@ import { Canvas } from './canvas';
 import { Global } from './global';
 import { wait } from './util';
 import { Score } from './score';
+import { GameOver } from './gameover';
 
 export class Piece {
   x: number;
@@ -124,9 +125,9 @@ export class Piece {
       this.checkLower();
       for (let c = 0; c < COL; c++) {
         if (board[0][c] !== VACANT) {
-          console.log('gameover');
           Global.gameOver = true;
           Global.pauseDisabled = true;
+          GameOver.show();
         }
       }
       Global.pieces = Global.pieces.filter(p => p !== this);
