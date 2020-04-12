@@ -51,9 +51,8 @@ class Game {
 
     this.player = new Player();
 
+    Game.production();
     // Game.test1();
-    Game.test2();
-    // Game.test3();
 
     Game.spawn();
     ready();
@@ -128,6 +127,16 @@ class Game {
       board[r] = [];
       for (let c = 0; c < COL; c++) {
         board[r][c] = VACANT;
+      }
+    }
+  }
+
+  static production(): void {
+    for (let c = 0; c < COL; c++) {
+      for (let r = 5; r < ROW; r++) {
+        const p = new Piece(c, r, CHARACTER[getNumber()]);
+        p.draw();
+        p.lock();
       }
     }
   }
