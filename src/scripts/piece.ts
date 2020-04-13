@@ -130,7 +130,7 @@ export class Piece {
           GameOver.show();
         }
       }
-      Global.pieces = Global.pieces.filter(p => p !== this);
+      Global.pieces = Global.pieces.filter((p) => p !== this);
     }
   }
 

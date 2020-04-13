@@ -15,7 +15,7 @@ const pattern = [
   [0, 1, 2, 3],
   [1, 2],
   [1, 3],
-  [2, 3]
+  [2, 3],
 ];
 
 class Game {
@@ -225,7 +225,7 @@ class Game {
     }
     Global.waiting = [];
     const rand = Math.floor(Math.random() * pattern.length);
-    pattern[rand].forEach(v => {
+    pattern[rand].forEach((v) => {
       const rand2 = Math.floor(Math.random() * CHARACTER.length);
       const p = new Piece(v, 0, CHARACTER[rand2]);
       p.draw();
@@ -236,7 +236,7 @@ class Game {
 
   static piecesDown(): void {
     if (!Global.gameOver) {
-      Global.pieces.forEach(p => {
+      Global.pieces.forEach((p) => {
         if (Global.standbyFlag) {
           Game.spawn();
           Global.standbyFlag = false;
@@ -257,7 +257,7 @@ class Game {
   }
 
   static swap(h: number, pxl: number, pxr: number): void {
-    Global.pieces.forEach(p => {
+    Global.pieces.forEach((p) => {
       if (p.y >= h) {
         if (pxl === p.x) {
           p.right();
