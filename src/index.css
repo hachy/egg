@@ -79,6 +79,7 @@ p {
   transition: all 0.3s;
 }
 
+.btn-ctrl:hover,
 #startBtn:hover,
 #resumeBtn:hover,
 #newGameBtn:hover,
@@ -111,4 +112,22 @@ p {
   color: white;
   text-align: center;
   background: rgba(0, 0, 0, 0.6);
+}
+
+#ctrl-btns-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn-ctrl {
+  height: 60px;
+  margin: 6px;
+  padding: 0 20px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  background: white;
+  border: 1px solid #000;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.1s;
 }

@@ -23,6 +23,10 @@ class Game {
   newGameBtn: HTMLButtonElement;
   pauseBtn: HTMLButtonElement;
   resumeBtn: HTMLButtonElement;
+  swapBtn: HTMLButtonElement;
+  leftBtn: HTMLButtonElement;
+  rightBtn: HTMLButtonElement;
+  downBtn: HTMLButtonElement;
   player!: Player;
 
   constructor() {
@@ -30,7 +34,11 @@ class Game {
     this.newGameBtn = document.getElementById('newGameBtn') as HTMLButtonElement;
     this.pauseBtn = document.getElementById('pauseBtn') as HTMLButtonElement;
     this.resumeBtn = document.getElementById('resumeBtn') as HTMLButtonElement;
-    document.addEventListener('keydown', e => this.keydown(e));
+    this.swapBtn = document.getElementById('btn-swap') as HTMLButtonElement;
+    this.leftBtn = document.getElementById('btn-left') as HTMLButtonElement;
+    this.rightBtn = document.getElementById('btn-right') as HTMLButtonElement;
+    this.downBtn = document.getElementById('btn-down') as HTMLButtonElement;
+    document.addEventListener('keydown', (e) => this.keydown(e));
   }
 
   init(): void {
@@ -39,6 +47,10 @@ class Game {
     this.newGameBtn.addEventListener('click', () => this.newGame());
     this.pauseBtn.addEventListener('click', () => this.pause());
     this.resumeBtn.addEventListener('click', () => this.resume());
+    this.swapBtn.addEventListener('click', () => this.swapCtrl());
+    this.leftBtn.addEventListener('click', () => this.leftCtrl());
+    this.rightBtn.addEventListener('click', () => this.rightCtrl());
+    this.downBtn.addEventListener('click', () => this.downCtrl());
   }
 
   start(): void {
@@ -89,35 +101,56 @@ class Game {
   }
 
   keydown(e: KeyboardEvent): void {
+    switch (e.keyCode) {
+      case 37:
+        this.leftCtrl();
+        break;
+      case 39:
+        this.rightCtrl();
+        break;
+      case 40:
+        this.downCtrl();
+        break;
+      case 32: {
+        this.swapCtrl();
+        break;
+      }
+      default:
+        break;
+    }
+  }
+
+  leftCtrl(): void {
     if (!Global.gameOver) {
-      switch (e.keyCode) {
-        case 37:
-          this.player.left();
-          break;
-        case 38:
-          break;
-        case 39:
-          this.player.right();
-          break;
-        case 40:
-          if (!Global.preventKey) {
-            Game.piecesDown();
-            Global.anim = requestAnimationFrame(Game.drop);
-          }
-          break;
-        case 32: {
-          if (!Global.preventKey) {
-            const h = lockedH(this.player.xLeft);
-            if (h) {
-              Canvas.swap(h, this.player.xLeft, this.player.xRight);
-              Game.swap(h, this.player.xLeft, this.player.xRight);
-            }
-            this.player.swap();
-          }
-          break;
+      this.player.left();
+    }
+  }
+
+  rightCtrl(): void {
+    if (!Global.gameOver) {
+      this.player.right();
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  downCtrl(): void {
+    if (!Global.gameOver) {
+      if (!Global.preventKey) {
+        Game.piecesDown();
+        Global.anim = requestAnimationFrame(Game.drop);
+      }
+    }
+  }
+
+  swapCtrl(): void {
+    if (!Global.gameOver) {
+      if (!Global.preventKey) {
+        const h = lockedH(this.player.xLeft);
+        if (h) {
+          Canvas.swap(h, this.player.xLeft, this.player.xRight);
+          Game.swap(h, this.player.xLeft, this.player.xRight);
         }
-        default:
-          break;
+        this.player.swap();
       }
     }
   }
